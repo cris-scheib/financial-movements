@@ -1,0 +1,8 @@
+# Node modules
+api/node_modules
+
+# Adonis directory for storing tmp files
+api/tmp
+
+# Environment variables, never commit this file
+api/.env
