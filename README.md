@@ -1,6 +1,6 @@
 # Financial movements
 
-A small project to keep track of cash inflows and outflows. The project is separated in two parts, the API and the APP(Application).
+A small project to keep track of cash inflows and outflows. The project is separated in two parts, the API and the APP (Application).
 
 ### API
 
@@ -8,4 +8,4 @@ Developed with the [AdonisJs Framework](https://adonisjs.com/), the API is the b
 
 ### APP
 
-... < in development >
+< in development >
