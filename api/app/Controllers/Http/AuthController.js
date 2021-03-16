@@ -20,9 +20,7 @@ class AuthController {
     async login({ request, response, auth }) {
 
         const { email, password } = request.all()
-
         await auth.attempt(email, password)
-
         auth.getUser().then(async user => {
             const { email, username } = user;
             return response.status(201).json({ email, username })
