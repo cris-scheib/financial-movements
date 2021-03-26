@@ -111,9 +111,14 @@ export default {
     },
   },
   created: function () {
-    let user = JSON.parse(localStorage.getItem("user"));
-    this.username = user.username;
-    this.email = user.email;
+    this.$api
+     .get(`/api/user/me`)
+        .then((res) => res.data)
+        .then((data) => {
+          this.username = data.username;
+          this.email = data.email;
+        })
+    
   },
 };
 </script>

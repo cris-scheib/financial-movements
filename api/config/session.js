@@ -89,11 +89,5 @@ module.exports = {
     | The configuration for the redis driver.
     |
     */
-    redis: {
-        host: '127.0.0.1',
-        port: 6379,
-        password: null,
-        db: 0,
-        keyPrefix: ''
-    }
+    redis: 'self::redis.default'
 }

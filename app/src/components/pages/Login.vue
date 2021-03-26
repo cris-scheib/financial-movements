@@ -94,7 +94,9 @@ export default {
         })
         .then((res) => {
           if (res != undefined) {
-            localStorage.setItem("user", JSON.stringify(res.data));
+            localStorage.setItem("token", res.data.token.token);
+            localStorage.setItem("refreshToken", res.data.token.refreshToken);
+            localStorage.setItem("username", res.data.username);
             this.$router.push("/dashboard");
           } else {
             this.makeToast();

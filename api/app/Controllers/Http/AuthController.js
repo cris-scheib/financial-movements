@@ -6,11 +6,16 @@ class AuthController {
     async register({ request, response, auth }) {
         const transition = await Database.beginTransaction()
         try {
-            const { email, username } = request.all()
-            let user = await User.create(request.all())
-            await auth.login(user)
-            await transition.commit()
-            return response.status(201).json({ email, username })
+            const { email, password, username } = request.all()
+            const user = await User.create(request.all())
+            if (user) {
+                const token = await auth.attempt(email, password)
+                await transition.commit()
+                return response.status(201).json({ token, username })
+            } else {
+                await transition.rollback()
+                return response.status(500).json({ message: 'Error to create the user', error })
+            }
         } catch (error) {
             await transition.rollback()
             return response.status(500).json({ message: 'Error to create the user', error })
@@ -18,15 +23,14 @@ class AuthController {
     }
 
     async login({ request, response, auth }) {
-
         const { email, password } = request.all()
-        await auth.attempt(email, password)
-        auth.getUser().then(async user => {
-            const { email, username } = user;
-            return response.status(201).json({ email, username })
-        }).catch(async error => {
+        const token = await auth.attempt(email, password)
+        const { username } = await User.findBy('email', email)
+        if (token) {
+            return response.status(201).json({ token, username })
+        } else {
             return response.status(403).json({ message: 'Invalid email or password ', error })
-        })
+        }
     }
 
     async logout({ response, auth }) {

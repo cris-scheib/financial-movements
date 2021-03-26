@@ -16,7 +16,7 @@ module.exports = {
     | Available Serializers - lucid, database
     |
     */
-    authenticator: 'session',
+    authenticator: 'jwt',
 
 
     /*
@@ -66,6 +66,7 @@ module.exports = {
     | via HTTP `Authorization` header.
     |
     */
+
     jwt: {
         serializer: 'lucid',
         model: 'App/Models/User',
@@ -77,19 +78,5 @@ module.exports = {
         }
     },
 
-    /*
-    |--------------------------------------------------------------------------
-    | Api
-    |--------------------------------------------------------------------------
-    |
-    | The Api scheme makes use of API personal tokens to authenticate a user.
-    |
-    */
-    api: {
-        serializer: 'lucid',
-        model: 'App/Models/User',
-        scheme: 'api',
-        uid: 'email',
-        password: 'password'
-    }
+
 }

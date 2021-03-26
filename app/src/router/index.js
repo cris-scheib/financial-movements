@@ -49,12 +49,12 @@ let router = new Router({
 
 router.beforeEach((to, from, next) => {
     if (to.matched.some(record => record.meta.requiresAuth)) {
-        let user = localStorage.getItem('user')
-        if (!user || user === 'null') next({ path: '/', params: { nextUrl: to.fullPath } })
+        let token = localStorage.getItem('token')
+        if (!token || token === 'null') next({ path: '/', params: { nextUrl: to.fullPath } })
         else next()
     } else if (to.matched.some(record => record.meta.guest)) {
-        let user = localStorage.getItem('user')
-        if (!user || user === 'null') next()
+        let token = localStorage.getItem('token')
+        if (!token || token === 'null') next()
         else next({ name: 'dashboard' })
     } else {
         next()

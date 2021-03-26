@@ -3,7 +3,7 @@
     <sidebar />
     <main>
       <header>
-        <b-link class="user-data" to="me">
+        <b-link class="user-data" to="/me">
           <b-icon icon="person"></b-icon>
           <p class="m-0 pl-2">{{ this.username }}</p>
         </b-link>
@@ -32,8 +32,7 @@ export default {
     },
   },
   created: function () {
-    let user = JSON.parse(localStorage.getItem("user"));
-    this.username = user.username;
+    this.username = localStorage.getItem("username");
   },
 };
 </script>
@@ -55,10 +54,11 @@ header {
 }
 .btn-logout{
   width: unset;
-    background-color: #2d2d33;
-    color: #daceb4;
-    padding: .5rem 1rem;
-    margin-left: 1rem;
+  background-color: #2d2d33;
+  color: #daceb4;
+  padding: .4rem .9rem;
+  margin-left: 1rem;
+  font-size: .9rem;
 }
 header{
   display: flex;
