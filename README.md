@@ -8,4 +8,4 @@ Developed with the [AdonisJs Framework](https://adonisjs.com/), the API is the b
 
 ### APP
 
-< in development >
+Developed with the [Vue CLI Framework](https://cli.vuejs.org/), the APP is the front of the project. It's the graphic part of the project and is where the user interacts with the design tools.
