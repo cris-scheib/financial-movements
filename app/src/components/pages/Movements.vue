@@ -41,10 +41,10 @@
             ></b-form-input>
           </b-form-group>
 
-          <b-form-group id="input-group-3" label="Movement Type:" label-for="movement_type_id">
+          <b-form-group id="type-label" label="Movement Type:" label-for="movement_type">
             <b-form-select
-              id="movement_type_id"
-              v-model="movement_type_id"
+              id="movement_type"
+              v-model="movement_type"
               :options="types"
             ></b-form-select>
           </b-form-group>
@@ -70,10 +70,10 @@
           ></a>
         </template>
         <template #cell(value)="data">
-          {{ data.value ? "In" : "Out" }}
+          ${{ data.value}}
         </template>
-        <template #cell(movement_type_id)="data">
-          {{ data.value ? "Enabled" : "Disabled" }}
+        <template #cell(movement_type)="data">
+           {{ types.find((x) => x.value === data.value).text }}
         </template>
       </b-table>
     </b-container>
@@ -89,11 +89,11 @@ export default {
   },
   data() {
     return {
-      fields: ["edit", "delete", "name", "value", "type"],
+      fields: ["edit", "delete", "name", "value", "movement_type"],
       items: [],
       name: "",
       value: null,
-      movement_type_id: null,
+      movement_type: null,
       title: "",
       types: [],
       id: null,
@@ -118,7 +118,7 @@ export default {
         let selected = this.items.find((x) => x.edit === id);
         this.name = selected.name;
         this.value = selected.value;
-        this.movement_type_id = selected.movement_type_id;
+        this.movement_type = selected.movement_type;
       }
       this.$refs["modal-edit"].show();
     },
@@ -143,11 +143,11 @@ export default {
           this.boxTwo = value;
           if (this.boxTwo) {
             this.$api
-              .delete(`/api/movement-type/${this.id}`)
+              .delete(`/api/movement/${this.id}`)
               .then(() => {
                 this.makeToast("success", "Movement deleted with success");
                 this.items = [];
-                this.getTypes();
+                this.getMovements();
               })
               .catch((error) => {
                 this.makeToast("danger", error.message);
@@ -163,17 +163,18 @@ export default {
     resetModal() {
       this.name = "";
       this.value = null;
+      this.movement_type = this.types[0].value
     },
     handleOk() {
-      let { name, value, movement_type_id } = this;
+      let { name, value, movement_type } = this;
       if (this.id == null) {
         this.$api
-          .post(`/api/movement-type/`, { name, value, movement_type_id })
+          .post(`/api/movement/`, { name, value, movement_type_id: movement_type })
           .then((res) => {
             this.makeToast("success", "New movement created with success");
             console.log(res);
             this.items = [];
-            this.getTypes();
+            this.getMovements();
           })
           .catch((error) => {
             this.makeToast("danger", error.message);
@@ -181,18 +182,19 @@ export default {
           });
       } else {
         this.$api
-          .put(`/api/movement/${this.id}`, { name, value, movement_type_id })
+          .put(`/api/movement/${this.id}`, { name, value, movement_type_id: movement_type })
           .then((res) => {
             this.makeToast("success", "Movement updated with success");
             console.log(res);
             this.items = [];
-            this.getTypes();
+            this.getMovements();
           })
           .catch((error) => {
             this.makeToast("danger", error.message);
             console.log("error", error);
           });
       }
+      
     },
     handleSubmit() {
       // Exit when the form isn't valid
@@ -203,11 +205,14 @@ export default {
         .then((res) => res.data)
         .then((data) => {
           for (let type of data) {
-            let item = { valeu: type.id, text: type.name };
+            let item = { value: type.id, text: type.name };
             this.types.push(item);
           }
+         
+          this.movement_type = this.types[0].value
         })
         .catch(() => {});
+        
     },
     getMovements() {
       this.$api
@@ -216,10 +221,11 @@ export default {
         .then((data) => {
            for (let movement of data) {
             let item = { 
-              id: movement.id, 
+              edit: movement.id, 
+              delete: movement.id, 
               name: movement.name,
               value:  movement.value,
-              movement_type_id: movement.movement_type_id};
+              movement_type: movement.movement_type_id};
             this.items.push(item);
           }
         })

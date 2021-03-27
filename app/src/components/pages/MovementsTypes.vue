@@ -28,14 +28,14 @@
               required
             ></b-form-input>
           </b-form-group>
-          <b-form-group id="input-group-3" label="Action:" label-for="action">
+          <b-form-group id="action-label" label="Action:" label-for="action">
             <b-form-select
               id="action"
               v-model="action"
               :options="actionList"
             ></b-form-select>
           </b-form-group>
-          <b-form-group id="input-group-3" label="Status:" label-for="status">
+          <b-form-group id="status-label" label="Status:" label-for="status">
             <b-form-select
               id="status"
               v-model="status"
