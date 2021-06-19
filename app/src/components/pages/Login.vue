@@ -9,7 +9,7 @@
             </h3>
           </header>
           <section>
-            <b-form-group v-show="!account">
+            <b-form-group v-if="!account">
               <b-form-input
                 id="username"
                 v-model="username"
