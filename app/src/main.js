@@ -42,5 +42,6 @@ Vue.use(IconsPlugin)
 
 new Vue({
     router,
-    render: h => h(App)
+    render: h => h(App),
+    history,
 }).$mount('#app')
