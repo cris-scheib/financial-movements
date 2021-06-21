@@ -1,15 +1,18 @@
 FROM ubuntu
 
-
 ENV TZ=America/Sao_Paulo
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
-EXPOSE 3334 3333 8081 8080
+COPY financial-movements/app /opt/
 
-COPY financial-movements /opt/
+WORKDIR /opt/app
 
 RUN apt update && apt install -y \
         nodejs \
         npm
 
-RUN cd /opt/app && npm install && npm run build
+RUN npm install
+
+CMD [ "npm", "run", "build" ]
+
+
