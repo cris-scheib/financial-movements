@@ -3,7 +3,7 @@ FROM ubuntu
 ENV TZ=America/Sao_Paulo
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
-COPY api/ /opt/
+COPY financial-movements/api/ /opt/
 
 WORKDIR /opt/api
 
