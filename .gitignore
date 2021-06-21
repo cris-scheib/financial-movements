@@ -7,3 +7,4 @@ api/tmp
 
 # Environment variables, never commit this file
 api/.env
+app/.env
