@@ -8,7 +8,7 @@ import axios from 'axios'
 
 require('./assets/css/custom.css');
 const api = axios.create({
-    baseURL: 'http://localhost:3333',
+    baseURL: 'http://'+process.env.VUE_APP_API_URL + ':'+process.env.VUE_APP_API_PORT,
 })
 
 api.interceptors.request.use(
