@@ -7,7 +7,7 @@ RUN mkdir /opt/api/
 
 COPY * /opt/api/
 
-WORKDIR /opt/api
+WORKDIR /opt/api/
 
 RUN apt update && apt install -y \
         nodejs \
