@@ -15,4 +15,4 @@ RUN apt update && apt install -y \
 
 RUN npm install
 
-CMD [ "npm", "run", "build" ]
+CMD [ "npm", "run", "serve" ]
