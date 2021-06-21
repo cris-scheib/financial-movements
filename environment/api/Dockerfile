@@ -5,7 +5,7 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 RUN mkdir /opt/api/
 
-COPY * /opt/api/
+COPY /root/.jenkins/workspace/financial-movements/api/* /opt/api/
 
 WORKDIR /opt/api/
 
