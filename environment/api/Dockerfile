@@ -15,7 +15,7 @@ RUN apt update && apt install -y \
 
 RUN npm install && npm i -g @adonisjs/cli \
         && adonis key:generate \
-        && adonis migration:run --seed --force
+        && yes | adonis migration:run --seed
 
 
 CMD [ "npm", "start"]
