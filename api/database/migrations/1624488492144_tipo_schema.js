@@ -7,7 +7,7 @@ class TipoSchema extends Schema {
   up () {
     this.create('tipos', (table) => {
       table.increments()
-      table.integer('id')
+      table.integer('codigo')
       table.string('descricao')
       table.timestamps()
     })
