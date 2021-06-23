@@ -2,7 +2,7 @@
   <layout>
     <b-container>
       <div class="d-flex align-items-center">
-        <h3 class="title">Types os Movements XXX</h3>
+        <h3 class="title">Types os Movements</h3>
         <div class="ml-auto">
           <b-button @click="openEditModal()" class="btn-edit">
             <b-icon icon="plus"></b-icon> Create</b-button
